@@ -10,7 +10,7 @@ const postRoutes = require('./routes/post');
 
 app.use(cors());
 mongoose.Promise = global.Promise;
-mongoose.connect("mongodb://localhost/rest-api-node", {useNewUrlParser: true});
+mongoose.connect("mongodb://localhost/rest-api-node", {useNewUrlParser: true, useUnifiedTopology: true });
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));

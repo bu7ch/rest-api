@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const {hasName} = require('../validations/validators');
+const uploadImage = require('../middlewares/multer');
+const {hasDescription} = require('../validations/validators');
 const postController = require("../controllers/postController");
 
 router.get('/', postController.index);
-router.post('/', hasName, postController.store)
+router.post('/',uploadImage('posts').single('image'), hasDescription, postController.store)
 
 module.exports = router;
