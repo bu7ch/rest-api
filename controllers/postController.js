@@ -1,4 +1,15 @@
+const validationHandler = require('../validations/validationHandler');
+
 exports.index = (req, res) => {
-  throw new Error("erreur aléatoire")
   res.send({message: "coucou"})
+}
+
+exports.store = (req, res, next) => {
+  try {
+    validationHandler(req);
+
+    res.send({message: `The name is ${req.body.name}`});
+  } catch (err) {
+    next(err);
+  }
 }
