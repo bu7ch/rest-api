@@ -8,6 +8,7 @@ const mongoose = require("mongoose");
 const passportJWT = require("./middlewares/passportJWT")();
 const errorHandler = require("./middlewares/errorHandler")
 const postRoutes = require('./routes/post');
+const authRoutes = require("./routes/auth");
 
 app.use(cors());
 mongoose.Promise = global.Promise;
@@ -18,8 +19,9 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(passportJWT.intialize())
 
+app.use("/api/auth", authRoutes);
+app.use("/api/post" ,passportJWT.authenticate(), postRoutes);
 
-app.use("/api/post", postRoutes);
 app.use(errorHandler)
 
 app.listen(3000, ()=> {

@@ -15,8 +15,9 @@ UserSchema.methods.encryptPassword = async password => {
   return hash
 };
 
-UserSchema.methods.validPassword = async (candidatePassword) => {
-  const result = await bcrypt.compare(candidatePassword, this.password);
+UserSchema.methods.validPassword = async (candidatePassword,oldPwd ) => {
+  const result = await bcrypt.compare(candidatePassword, oldPwd);
+  
   return result;
 }
 
