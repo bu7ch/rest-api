@@ -5,6 +5,7 @@ const {hasDescription} = require('../validations/validators');
 const postController = require("../controllers/postController");
 
 router.get('/', postController.index);
+router.get('/:id', postController.show);
 router.post('/',uploadImage('posts').single('image'), hasDescription, postController.store)
 
 module.exports = router;
