@@ -9,7 +9,7 @@ exports.index = async (req, res) => {
     next(err);
   }
 }
-exports.show = async (req, res) => {
+exports.show = async (req, res, next) => {
   try {
     const post = await Post.findOne({
       _id:req.params.id
@@ -42,6 +42,18 @@ exports.update =  async (req, res, next) => {
     post = await post.save();
 
     res.send(post);
+  } catch (err) {
+    next(err);
+  }
+}
+exports.delete =  async (req, res, next) => {
+  try {
+    validationHandler(req);
+
+    let post = await Post.findById(req.params.id); 
+    await post.delete();
+
+    res.send({message: 'success'});
   } catch (err) {
     next(err);
   }
